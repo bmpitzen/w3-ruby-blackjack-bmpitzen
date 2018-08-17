@@ -31,7 +31,7 @@ attr_accessor :deck
   end
 
   def shuffle
-    @deck.shuffle
+    @deck.shuffle!
   end
 
 end
