@@ -35,16 +35,17 @@ class BlackjackGame
   def hit_loop
     hit_answer = ''
     while hit_answer.downcase[0] != 's'
-      puts 'Would you like to (h)it or (s)tand?'
-      hit_answer = gets.chomp
-      if hit_answer.downcase[0] == 'h'
-        hit
-        if @hand.busted? == true
-          puts 'This should exit the program'
+      if !@hand.busted?
+        puts 'Would you like to (h)it or (s)tand?'
+        hit_answer = gets
+        if hit_answer.downcase[0] == 'h'
+          hit
+        else
+          stand
           return
         end
       else
-        stand
+        puts 'You busted! Game Over'
         return
       end
     end

@@ -14,14 +14,7 @@ class Hand
   end
 
   def busted?
-    if total > 21
-      puts 'You bust! Game Over'
-      true
-      return
-    else
-      puts "evluate against dealer"
-      false
-    end
+    total > 21
   end
 
 end
