@@ -7,6 +7,7 @@ class BlackjackGame
 
   def initialize
     @deck = Deck.new
+    @wallet = 100
   end
 
   def player_name
@@ -24,32 +25,6 @@ class BlackjackGame
     puts "You stand. Your hand is #{@hand.cards} which is #{@hand.total}"
   end
 
-  # def hit_or_stand
-  #   if hit_answer.downcase[0] == 'h'
-  #     hit
-  #   else
-  #     stand
-  #   end
-  # end
-
-  def hit_loop
-    hit_answer = ''
-    while hit_answer.downcase[0] != 's'
-      if !@hand.busted?
-        puts 'Would you like to (h)it or (s)tand?'
-        hit_answer = gets
-        if hit_answer.downcase[0] == 'h'
-          hit
-        else
-          stand
-          return
-        end
-      else
-        puts 'You busted! Game Over'
-        return
-      end
-    end
-  end
 
   # def play(input)
   #   input = gets.chomp
@@ -80,8 +55,31 @@ class BlackjackGame
     end
   end
 
-  def wallet
-    @wallet = '$100'
+  def wallet_lose
+    @wallet -= 10
+  end
+  def wallet_win
+    @wallet += 10
+  end
+  def hit_loop
+    hit_answer = ''
+    while hit_answer.downcase[0] != 's'
+      if !@hand.busted?
+        puts 'Would you like to (h)it or (s)tand?'
+        hit_answer = gets
+        if hit_answer.downcase[0] == 'h'
+          hit
+        else
+          stand
+          return
+        end
+      else
+        wallet_lose
+        puts 'You busted! Game Over'
+        puts "#{@wallet}"
+        return
+      end
+    end
   end
 end
 
