@@ -1,8 +1,6 @@
 require_relative 'lib/card'
 require_relative 'lib/deck'
 require_relative 'lib/hand'
-require_relative 'lib/dealer'
-require_relative 'lib/player'
 
 class BlackjackGame
   attr_accessor :run
@@ -35,18 +33,21 @@ class BlackjackGame
   # end
 
   def hit_loop
-    hit_answer = gets.chomp
+    hit_answer = ''
     while hit_answer.downcase[0] != 's'
-      puts "The cards you have are #{@hand.cards} which is #{@hand.total}"
       puts 'Would you like to (h)it or (s)tand?'
       hit_answer = gets.chomp
       if hit_answer.downcase[0] == 'h'
         hit
+        if @hand.busted? == true
+          puts 'This should exit the program'
+          return
+        end
       else
         stand
+        return
       end
     end
-    hand.total
   end
 
   # def play(input)
@@ -67,7 +68,8 @@ class BlackjackGame
     @hand = Hand.new
     deal
     player_name
-    puts "Welcome #{@name}! Your wallet starts with $100 and you bet $10 each time you play."
+    puts "Welcome #{@name}! Your wallet starts with $100 and you bet $10 each hand."
+    puts "The cards you have are #{@hand.cards} which is #{@hand.total}"
     hit_loop
   end
 

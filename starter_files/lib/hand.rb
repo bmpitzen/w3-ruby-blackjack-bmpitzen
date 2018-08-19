@@ -13,11 +13,15 @@ class Hand
     @player_hand.map(&:value).sum
   end
 
-  def compare_total
+  def busted?
     if total > 21
       puts 'You bust! Game Over'
+      true
+      return
     else
-      puts "Your final hand is #{total}"
+      puts "evluate against dealer"
+      false
     end
   end
+
 end
