@@ -37,16 +37,32 @@ class BlackjackGame
   #     puts 'That is not a valid response'
   #   end
   # end
+ 
+ 
+  def keep_playing
+    input = ''
+    puts 'Would you like to play again? (y)es or (n)o'
+    input = gets
+    while input.downcase[0] == 'y'
+      round
+    end
+  end
 
-  def run
-    puts 'Hello! Lets play blackjack!'
+  def round
+    Deck.new
     @deck.shuffle
     @hand = Hand.new
     deal
-    player_name
-    puts "Welcome #{@name}! Your wallet starts with $100 and you bet $10 each hand."
     puts "The cards you have are #{@hand.cards} which is #{@hand.total}"
     hit_loop
+  end
+
+  def run
+    puts 'Hello! Lets play blackjack!'
+    player_name
+    puts "Welcome #{@name}! Your wallet starts with $100 and you bet $10 each hand."
+    round
+    keep_playing
   end
 
   def deal
@@ -75,7 +91,7 @@ class BlackjackGame
         end
       else
         wallet_lose
-        puts 'You busted! Game Over'
+        puts 'You busted!'
         puts "#{@wallet}"
         return
       end
